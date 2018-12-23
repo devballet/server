@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<list>
+
+
+
+<item id="test2" type="common">
+    <id>test2</id>
+    <title>전체업체조회</title>
+    <description>
+    SELECT A.*
+           , (
+              select z.fav_yn
+                      from roomesc.ooodmfavt z
+                     where z.comp_cd = a.comp_cd
+                      and z.usr_id = :usrId
+            ) FAV_YN 
+      FROM roomesc.ooodmcomp a
+    </description>
+  </item>
+
+
+<item id="test" type="common">
+    <id>test</id>
+    <title>전체업체조회</title>
+    <description>
+    SELECT A.*
+           , (
+              select z.fav_yn
+                      from roomesc.ooodmfavt z
+                     where z.comp_cd = a.comp_cd
+                      and z.usr_id = :usrId
+            ) FAV_YN 
+      FROM roomesc.ooodmcomp a
+    </description>
+  </item>
+
+  <item id="selectAllListComp" type="common">
+    <id>selectAllListComp</id>
+    <title>전체업체조회</title>
+    <description>
+    SELECT A.*
+           , (
+              select z.fav_yn
+                      from roomesc.ooodmfavt z
+                     where z.comp_cd = a.comp_cd
+                      and z.usr_id = :usrId
+            ) FAV_YN 
+          , (
+              select count(1)
+                    from roomesc.ooodmroom z
+              where z.comp_cd = a.comp_cd
+                    and z.use_yn = 'Y'
+              )  room_count    
+      FROM roomesc.ooodmcomp a
+    </description>
+  </item>
+
+  <item id="selectMyListComp" type="common">
+    <id>selectMyListComp</id>
+    <title>전체업체조회</title>
+    <description>
+      SELECT /* selectMyListComp */
+             a.*
+           , (
+              select z.fav_yn
+                      from roomesc.ooodmfavt z
+                     where z.comp_cd = a.comp_cd
+                      and z.usr_id = :usrId
+            ) FAV_YN 
+            , (
+              select count(1)
+                    from roomesc.ooodmroom z
+              where z.comp_cd = a.comp_cd
+                    and z.use_yn = 'Y'
+              )  room_count
+           ,  (
+              select count(1)
+                from roomesc.ooodmusrm z
+              where z.comp_cd = a.comp_cd
+                and z.use_yn = 'Y'
+            ) usr_add_count
+        FROM roomesc.ooodmcomp a
+      where exists (
+                select 1
+                  from roomesc.ooodmusrm z
+                where z.usr_id = :usrId
+                  and z.comp_cd = a.comp_cd
+              )
+    </description>
+  </item>
+
+  
+  <item id="selectFavListComp" type="common">
+    <id>selectFavListComp</id>
+    <title>전체업체조회</title>
+    <description>
+      SELECT a.*
+           , (
+              select z.fav_yn
+                      from roomesc.ooodmfavt z
+                     where z.comp_cd = a.comp_cd
+                      and z.usr_id = :usrId
+            ) FAV_YN 
+            , (
+              select count(1)
+                    from roomesc.ooodmroom z
+              where z.comp_cd = a.comp_cd
+                    and z.use_yn = 'Y'
+              )  room_count
+        FROM roomesc.ooodmcomp a
+      where exists (
+                select 1
+                  from roomesc.ooodmfavt z
+                where z.usr_id = :usrId
+                  and z.comp_cd = a.comp_cd
+                  and z.fav_yn = 'Y'
+              )
+    </description>
+  </item>
+
+
+</list>
+
+
+

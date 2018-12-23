@@ -1,0 +1,21 @@
+{
+  "name": "roomesc",
+  "version": "1.0.0",
+  "description": "rommesc package",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": ">=4.16.3",
+    "morgan": "^1.9.0",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.5.3",
+    "nconf": "^0.10.0",
+    "node-mysql": "^0.4.2",
+    "orm": "^4.0.2",
+    "sequelize": "^4.37.10",
+    "squel": "^5.12.1",
+    "ws": "^3.3.2",
+    "xml2js": "^0.4.19"
+  },
+  "author": "simwoojong",
+  "license": "ISC"
+}
