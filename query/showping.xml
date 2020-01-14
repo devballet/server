@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<list>
+    <item id="selectTitle" type="common">
+        <id>selectTitle</id>
+        <title>타이틀 정보 조회</title>
+        <description>
+       SELECT a.* 
+         FROM roomesc.oooshtit a
+        where a.usr_id = :usrId
+          and a.ordr_direct_Dt = :ordrDirectDt
+          and a.vist_Sn = :vistSn
+        </description>
+    </item>
+
+    <item id="selectMaxTitle" type="common">
+        <id>selectMaxTitle</id>
+        <title>마지막 저장된 타이틀 정보 조회</title>
+        <description>
+       select stod_no
+        from oooshtitl a
+      where a.first_sys_dtm = (
+                    select max(first_sys_dtm)
+                          from oooshtitl a
+                        where a.vald_yn = 'Y'
+                          and a.usr_id = :usrId
+                    )
+        </description>
+    </item>
+
+    <item id="selectAllTitle" type="common">
+        <id>selectAllTitle</id>
+        <title>타이틀 정보 전체 조회</title>
+        <description>
+       SELECT USR_ID
+            , STOD_NO
+            , concat( substr(ordr_direct_dt ,1, 4) , '-', substr(ordr_direct_dt ,5, 2), '-', substr(ordr_direct_dt ,7, 2)) ORDR_DIRECT_DT
+            , VALD_YN
+            , TITL_NM
+            , FIRST_USR_ID
+            , FIRST_SYS_DTM
+            , LAST_USR_ID
+            , LAST_SYS_DTM
+          FROM roomesc.oooshtitl a
+        where a.usr_id = :usrId
+          and a.vald_yn = 'Y'
+        order by ORDR_DIRECT_DT desc
+
+                    
+        </description>
+    </item>
+  </list>

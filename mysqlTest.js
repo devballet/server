@@ -30,7 +30,7 @@ var app = express();
 app.set('port', 3000);
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // body-parser를 이용해 application/json 파싱
 app.use(bodyParser.json())

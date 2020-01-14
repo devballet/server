@@ -2,16 +2,17 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 const room_proc = require('./PROC_SERVICE/room_proc')
+const showping_proc = require('./PROC_SERVICE/showping_proc')
 
 // 익스프레스 객체 생성
 var app = express();
 app.set('port', 3000);
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // body-parser를 이용해 application/json 파싱
-app.use(bodyParser.json())
+//app.use(bodyParser.json())
 
 //app.get('/test', room_proc.test);
 //app.get('/test2', room_proc.test2);
@@ -25,7 +26,18 @@ app.post('/UserRoomSave', room_proc.UserRoomSave);
 app.post('/UserRoomDelete', room_proc.UserRoomDelete);
 app.post('/RoomInfoSave', room_proc.RoomInfoSave);
 app.post('/UserFavCompSave', room_proc.UserFavCompSave);
-// });
+
+
+
+
+app.post('/ShowpingOrdrSelect', showping_proc.ShowpingOrdrSelect);
+app.post('/ShowpingOrdrSave', showping_proc.ShowpingOrdrSave);
+app.post('/SelectLastStodNo', showping_proc.SelectLastStodNo);
+app.post('/SelectTitle', showping_proc.SelectTitle);
+
+
+
+// }); 111111222
 
 
 //===== 서버 시작 =====//
