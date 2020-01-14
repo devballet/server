@@ -49,7 +49,7 @@ var pool = mysql.createPool({
 });
 
 
-var testquery;
+var testquery; 
 
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
