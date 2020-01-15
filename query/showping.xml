@@ -36,10 +36,18 @@
             , concat( substr(ordr_direct_dt ,1, 4) , '-', substr(ordr_direct_dt ,5, 2), '-', substr(ordr_direct_dt ,7, 2)) ORDR_DIRECT_DT
             , VALD_YN
             , TITL_NM
+            , SHOW_DT
             , FIRST_USR_ID
             , FIRST_SYS_DTM
             , LAST_USR_ID
             , LAST_SYS_DTM
+            , (
+                select group_concat( ordr_nm SEPARATOR ', ')
+                  from roomesc.oooshordr z
+                 where z.usr_id = a.usr_id
+                   and z.stod_no = a.stod_no
+                   and z.vald_yn = 'Y'
+              ) ORDR_INFO
           FROM roomesc.oooshtitl a
         where a.usr_id = :usrId
           and a.vald_yn = 'Y'

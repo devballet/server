@@ -239,6 +239,7 @@ const ShowpingOrderUpdat = function (list, preData, stodNo) {
   var nowDate = Date.now();
   DT_TITL.update({
     TITL_NM: preData.titlNm
+    , SHOW_DT: preData.showDt
     , LAST_USR_ID: preData.usrId
     , LAST_SYS_DTM: nowDate
   }, {
@@ -346,6 +347,7 @@ const ShowpingOrdrSave = function (req, res) {
 
     var titlNm = req.body.titlNm;
     var ordrDirectDt = req.body.ordrDirectDt;
+    var showDt = req.body.showDt;
     //var vistSn = req.body.vistSn;
     var usrId = req.body.usrId;
     var stodNo = req.body.stodNo;
@@ -381,6 +383,7 @@ const ShowpingOrdrSave = function (req, res) {
             USR_ID: req.body.usrId
             , STOD_NO: newStodNo
             , ORDR_DIRECT_DT: ordrDirectDt
+            , SHOW_DT: showDt
             , VALD_YN: "Y"
             , TITL_NM: req.body.titlNm
             , FIRST_USR_ID: req.body.usrId
@@ -535,6 +538,9 @@ var DT_TITL = sequelize.define('oooshtitl', {
     primaryKey: true
   },
   ORDR_DIRECT_DT: {
+    type: Sequelize.STRING,
+  },
+  SHOW_DT: {
     type: Sequelize.STRING,
   },
   VALD_YN: {
