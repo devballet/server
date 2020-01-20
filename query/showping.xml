@@ -56,4 +56,21 @@
                     
         </description>
     </item>
+
+    <item id="selectUserInfo" type="common">
+        <id>selectUserInfo</id>
+        <title>사용자 정보 조회</title>
+        <description>
+       SELECT USR_ID
+            , VALD_YN
+            , FIRST_USR_ID
+            , FIRST_SYS_DTM
+            , LAST_USR_ID
+            , LAST_SYS_DTM
+          FROM roomesc.oooshuser a
+        where a.usr_id = :usrId
+
+                    
+        </description>
+    </item>
   </list>

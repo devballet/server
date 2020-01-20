@@ -34,6 +34,11 @@ app.post('/ShowpingOrdrSelect', showping_proc.ShowpingOrdrSelect);
 app.post('/ShowpingOrdrSave', showping_proc.ShowpingOrdrSave);
 app.post('/SelectLastStodNo', showping_proc.SelectLastStodNo);
 app.post('/SelectTitle', showping_proc.SelectTitle);
+app.post('/DeleteTitle', showping_proc.DeleteTitle);
+app.post('/SelectUser', showping_proc.SelectUser);
+app.post('/SaveUser', showping_proc.SaveUser);
+
+
 
 
 
