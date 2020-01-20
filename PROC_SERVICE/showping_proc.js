@@ -49,7 +49,7 @@ var pool = mysql.createPool({
 });
 
 
-var testquery; 
+var testquery;
 
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
@@ -90,6 +90,48 @@ const getNowDate = function (type) {
 
 }
 
+/*----------------
+name : DeleteTitle
+desc : 타이틀 정보를 삭제한다.
+pram : 
+/*----------------*/
+const DeleteTitle = function (req, res) {
+  var usrId = req.body.usrId;
+  var stodNo = req.body.stodNo;
+  var nowDate = Date.now();
+
+  DT_TITL.findAll(
+    {
+      where: {
+        USR_ID: usrId
+        , STOD_NO: stodNo
+        , VALD_YN: 'Y'
+      }
+    }
+  )
+    .then(function (results) {
+      console.log(results);
+
+
+      if (results != null && results.length > 0) {
+        DT_TITL.update({
+          VALD_YN: 'N'
+          , LAST_USR_ID: usrId
+          , LAST_SYS_DTM: nowDate
+        }, {
+          where: {
+            USR_ID: usrId
+            , STOD_NO: stodNo
+          }, returning: true
+        })
+
+        res.json(ResultSetting("삭제하였습니다.", null));
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
 
 /*----------------
 name : SelectTitle
@@ -111,25 +153,81 @@ const SelectTitle = function (req, res) {
     })
     .then(function (results) {
       if (results != null && results.length > 0) {
-        
+
         var jsonOrder = JSON.stringify(results);
         var aJson = new Object();
-          aJson.titlData = jsonOrder;
-          res.json(ResultSetting("", aJson));
+        aJson.titlData = jsonOrder;
+        res.json(ResultSetting("", aJson));
       }
-      else{
+      else {
         res.json(ResultSetting("조회된 데이터가 없습니다.", null));
       }
-
-     
-  
-      
     })
-
-
-
-
 }
+
+/*----------------
+name : SelectUser
+desc : 사용자 정보를 조회한다.
+pram : 
+/*----------------*/
+const SelectUser = function (req, res) {
+  var usrId = req.body.usrId;
+
+  queryString = queryFinder("selectUserInfo");
+  console.log("쿼리 : " + queryString);
+  if (queryString == "") return;
+
+
+  sequelize.query(queryString
+    , {
+      replacements: { usrId: usrId }
+      , type: sequelize.QueryTypes.SELECT
+    })
+    .then(function (results) {
+      if (results != null && results.length > 0) {
+
+        var jsonOrder = JSON.stringify(results);
+        var aJson = new Object();
+        aJson.userData = jsonOrder;
+        res.json(ResultSetting("", aJson));
+      }
+      else {
+        res.json(ResultSetting("", null));
+      }
+    })
+}
+
+/*----------------
+name : SaveUser
+desc : 사용자 정보를 저장한다.
+pram : 
+/*----------------*/
+const SaveUser = function (req, res) {
+
+  //신규 유저 추가
+  var nowDate = Date.now();
+  var usrId = req.body.usrId;
+  var nickName = req.body.nickName;
+
+  newStodNo = req.body.usrId + nowDate;
+
+  DT_USER.create({
+    USR_ID: req.body.usrId
+    , NICK_NAME: req.body.nickName
+    , VALD_YN: "Y"
+    , FIRST_USR_ID: req.body.usrId
+    , FIRST_SYS_DTM: nowDate
+    , LAST_USR_ID: req.body.usrId
+    , LAST_SYS_DTM: nowDate
+  })
+    .then(result => {
+      res.json(ResultSetting("저장하였습니다.", null));
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+
 
 
 /*----------------
@@ -202,6 +300,7 @@ const ShowpingOrdrSelect = function (req, res) {
           var aJson = new Object();
           aJson.titleNm = results[0].TITL_NM;
           aJson.stodNo = results[0].STOD_NO;
+          aJson.showDt = results[0].SHOW_DT;
           aJson.orderData = jsonOrder;
           //var jsonTitle = JSON.stringify(results);
 
@@ -229,6 +328,7 @@ const ResultSetting = function (msg, resultString) {
 
   return aJson;
 }
+
 
 /*----------------
 name : ShowpingOrderUpdat
@@ -622,6 +722,40 @@ var DT_ORDR = sequelize.define('oooshordr', {
   timestamps: false
 });
 
+/*----------------
+  name : DT_USER Table
+  desc : 사용자 테이블
+  pram : 
+  /*----------------*/
+var DT_USER = sequelize.define('oooshuser', {
+  USR_ID: {
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  NICK_NAME: {
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  VALD_YN: {
+    type: Sequelize.STRING
+  },
+  FIRST_USR_ID: {
+    type: Sequelize.STRING
+  },
+  FIRST_SYS_DTM: {
+    type: Sequelize.DATE
+  },
+  LAST_USR_ID: {
+    type: Sequelize.STRING
+  },
+  LAST_SYS_DTM: {
+    type: Sequelize.DATE
+  }
+}, {
+  freezeTableName: true, // Model tableName will be the same as the model name
+  timestamps: false
+});
+
 
 /*----------------
 name : 쿼리를 조회한다.
@@ -652,4 +786,7 @@ module.exports = {
   , ShowpingOrdrSelect
   , SelectLastStodNo
   , SelectTitle
+  , DeleteTitle
+  , SelectUser
+  , SaveUser
 };
