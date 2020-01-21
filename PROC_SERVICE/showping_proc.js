@@ -9,12 +9,24 @@ var squel = require("squel");
 // password : '1234qwer!',
 // database : 'roomesc',
 
-//var hostName = '10.0.0.1';
-var hostName = 'localhost';
-var user = 'root';
-var database = 'roomesc';
-var password = '1234qwer!';
-var port = '3306';
+//로컬에서 테스트할때?
+//var hostName = 'localhost';
+//var user = 'root';
+//var database = 'roomesc';
+//var password = '1234qwer!';
+//var port = '3306';
+
+
+//Cafe24에 접근할때?
+var hostName = '10.0.0.1';
+ var hostName = 'localhost';
+ var user = 'tk32189';
+ var database = 'tk32189';
+ var password = 'snack539223!';
+ var port = '3306';
+
+
+
 
 var express = require('express');
 var bodyParser = require('body-parser');
