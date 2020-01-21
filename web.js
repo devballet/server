@@ -58,5 +58,5 @@ console.log("Express 서버 객체가 종료됩니다.");
 
 // Express 서버 시작
 http.createServer(app).listen(app.get('port'), function(){
-console.log('(V.20200121)서버가 시작되었습니다. 포트 : ' + app.get('port'));
+console.log('(V.20200121 )서버가 시작되었습니다. 포트 : ' + app.get('port'));
 });
