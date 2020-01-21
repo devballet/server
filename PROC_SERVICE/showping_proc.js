@@ -18,8 +18,7 @@ var squel = require("squel");
 
 
 //Cafe24에 접근할때?
-var hostName = '10.0.0.1';
- var hostName = 'localhost';
+var hostName = 'localhost';
  var user = 'tk32189';
  var database = 'tk32189';
  var password = 'snack539223!';
