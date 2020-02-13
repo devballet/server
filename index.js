@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
-const room_proc = require('./PROC_SERVICE/room_proc')
+//const room_proc = require('./PROC_SERVICE/room_proc')
 const showping_proc = require('./PROC_SERVICE/showping_proc')
 
 // 익스프레스 객체 생성
@@ -14,18 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // body-parser를 이용해 application/json 파싱
 //app.use(bodyParser.json())
 
-//app.get('/test', room_proc.test);
-//app.get('/test2', room_proc.test2);
-//app.get('/roomSelect', room_proc.roomSelect);
-//app.get('/sequelizeTest', room_proc.sequelizeTest);
-//app.get('/RoomSelect/:compCd', room_proc.RoomSelect);
-app.post('/RoomSelect', room_proc.RoomSelect);
-app.post('/CompSelect', room_proc.CompSelect);
-app.post('/UserRoomSelect', room_proc.UserRoomSelect);
-app.post('/UserRoomSave', room_proc.UserRoomSave);
-app.post('/UserRoomDelete', room_proc.UserRoomDelete);
-app.post('/RoomInfoSave', room_proc.RoomInfoSave);
-app.post('/UserFavCompSave', room_proc.UserFavCompSave);
+// app.post('/RoomSelect', room_proc.RoomSelect);
+// app.post('/CompSelect', room_proc.CompSelect);
+// app.post('/UserRoomSelect', room_proc.UserRoomSelect);
+// app.post('/UserRoomSave', room_proc.UserRoomSave);
+// app.post('/UserRoomDelete', room_proc.UserRoomDelete);
+// app.post('/RoomInfoSave', room_proc.RoomInfoSave);
+// app.post('/UserFavCompSave', room_proc.UserFavCompSave);
 
 
 
