@@ -6,13 +6,15 @@ const showping_proc = require('./PROC_SERVICE/showping_proc')
 
 // 익스프레스 객체 생성
 var app = express();
-app.set('port', 3000);
+//app.set('port', 3000);
+app.set('port', 8001);
 
 // body-parser를 이용해 application/x-www-form-urlencoded 파싱
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // body-parser를 이용해 application/json 파싱
 //app.use(bodyParser.json())
+
 
 // app.post('/RoomSelect', room_proc.RoomSelect);
 // app.post('/CompSelect', room_proc.CompSelect);
@@ -53,5 +55,5 @@ console.log("Express 서버 객체가 종료됩니다.");
 
 // Express 서버 시작
 http.createServer(app).listen(app.get('port'), function(){
-console.log('(V.20200121)서버가 시작되었습니다. 포트 : ' + app.get('port'));
+console.log('(V.20200213-1 )서버가 시작되었습니다. 포트 : ' + app.get('port'));
 });
